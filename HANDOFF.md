@@ -197,8 +197,13 @@ curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 
   - 2カラム: フォーム + 会社連絡先情報、下部に地図埋め込み
 - CSS 拡張: company-table, timeline, service-hero, service-cta, contact-grid, contact-info, contact-map
 
+### 実装済み（追加分2）
+- recross/assets/images/logo.svg — オリジナルロゴ（211×47, brand red #D11C2C）
+- recross/screenshot.png — 1200×900 白背景に中央配置（ロゴ55%幅）
+- header.php / footer.php フォールバックロゴ表示を SVG に変更
+  - フッターは `filter: brightness(0) invert(1)` で白化（暗背景用）
+
 ### 残タスク
-- **screenshot.png（ロゴ素材待ち）** — ユーザーから logo SVG/PNG のアップロード待ち
 - 動作確認用WP環境でのデバッグ（環境未準備）
 - 会社概要・沿革・アクセスは ACF データを「会社概要(id=25)」の post に登録すれば既に表示される
 - デザイン詳細の微調整（ホバー演出、装飾、写真の差し替え）

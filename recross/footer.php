@@ -8,13 +8,9 @@
 <footer class="site-footer" role="contentinfo">
     <div class="site-container site-footer__inner">
         <div class="site-footer__brand">
-            <?php if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) : ?>
-                <?php the_custom_logo(); ?>
-            <?php else : ?>
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-footer__logo-link" rel="home">
-                    <span class="site-footer__logo-text"><?php bloginfo( 'name' ); ?></span>
-                </a>
-            <?php endif; ?>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-footer__logo-link" rel="home" aria-label="<?php bloginfo( 'name' ); ?>">
+                <img src="<?php echo esc_url( RECROSS_THEME_URI . '/assets/images/logo.svg' ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="site-footer__logo-img" width="211" height="47">
+            </a>
             <p class="site-footer__address">
                 〒210-0844<br>
                 神奈川県川崎市川崎区渡田新町３丁目２−８<br>

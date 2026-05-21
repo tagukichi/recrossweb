@@ -21,8 +21,8 @@
             <?php if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) : ?>
                 <?php the_custom_logo(); ?>
             <?php else : ?>
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header__logo-link" rel="home">
-                    <span class="site-header__logo-text"><?php bloginfo( 'name' ); ?></span>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header__logo-link" rel="home" aria-label="<?php bloginfo( 'name' ); ?>">
+                    <img src="<?php echo esc_url( RECROSS_THEME_URI . '/assets/images/logo.svg' ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="site-header__logo-img" width="211" height="47">
                 </a>
             <?php endif; ?>
         </div>

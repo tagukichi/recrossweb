@@ -186,7 +186,8 @@ button { font: inherit; cursor: pointer; }
     text-decoration: none;
     color: var(--color-text);
 }
-.site-header__brand img { max-height: 40px; width: auto; }
+.site-header__brand img,
+.site-header__logo-img { max-height: 32px; width: auto; }
 .site-header__logo-text { font-weight: 700; font-size: 18px; }
 
 .site-header__toggle {
@@ -258,7 +259,8 @@ button { font: inherit; cursor: pointer; }
     .site-container { padding-left: var(--gutter-tab); padding-right: var(--gutter-tab); }
 
     .site-header__inner { min-height: var(--header-height-pc); }
-    .site-header__brand img { max-height: 48px; }
+    .site-header__brand img,
+    .site-header__logo-img { max-height: 40px; }
     .site-header__toggle { display: none; }
     .site-header__nav {
         display: flex;
@@ -588,6 +590,11 @@ button { font: inherit; cursor: pointer; }
     .site-footer__inner { grid-template-columns: 1.2fr 1fr; padding: 72px 0; }
 }
 .site-footer__logo-text { font-size: 20px; font-weight: 700; color: #fff; }
+.site-footer__logo-img {
+    max-height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
 .site-footer__address,
 .site-footer__contact { font-size: 13px; line-height: 1.8; color: #ccc; }
 .site-footer__contact a { color: #fff; }
