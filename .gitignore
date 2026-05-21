@@ -1,0 +1,10 @@
+# Build artifacts (regenerable from recross/)
+recross.zip
+*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
