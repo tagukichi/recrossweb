@@ -185,13 +185,23 @@ curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 
 - assets/css/style.css（デザイントークン・レスポンシブ基盤）
 - assets/js/main.js（モバイルナビ・スライダー）
 
+### 実装済み（追加分）
+- single-company.php / archive-company.php（会社情報CPT専用）
+  - outline = 会社概要テーブル、history = 沿革タイムライン、access = 地図＋テーブル
+  - archive ではプライバシーポリシーを非表示
+- single-service.php / archive-service.php（事業内容CPT専用）
+  - single: ヒーロー画像 + 本文 + お問合せCTA + 他事業カード
+  - archive: 4-up カードグリッド + KYOSO/ちょこぺじ
+- single-news.php / archive-news.php（最新情報CPT専用）
+- page-contact.php（お問合せページ専用 / Template Name: お問合せ）
+  - 2カラム: フォーム + 会社連絡先情報、下部に地図埋め込み
+- CSS 拡張: company-table, timeline, service-hero, service-cta, contact-grid, contact-info, contact-map
+
 ### 残タスク
-- screenshot.png（テーマスクリーンショット）
-- 動作確認用WP環境でのデバッグ
-- KYOSO/ちょこぺじ 専用ページテンプレートが必要なら追加
-- お問合せページ専用テンプレート（CF7との連携CSS統合）
-- 沿革・アクセスページのレイアウト詳細
-- デザイン詳細の作り込み（カラー比率、見出し装飾、ホバー演出等）
+- **screenshot.png（ロゴ素材待ち）** — ユーザーから logo SVG/PNG のアップロード待ち
+- 動作確認用WP環境でのデバッグ（環境未準備）
+- 会社概要・沿革・アクセスは ACF データを「会社概要(id=25)」の post に登録すれば既に表示される
+- デザイン詳細の微調整（ホバー演出、装飾、写真の差し替え）
 
 ### ブランチ
 - 本セッション: `claude/resume-from-handoff-DWZ8d`
