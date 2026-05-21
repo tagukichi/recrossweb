@@ -1,0 +1,16 @@
+/*
+Theme Name: recross
+Theme URI: https://recross.co.jp/
+Author: 株式会社recross
+Author URI: https://recross.co.jp/
+Description: 株式会社リクロスのオリジナルコーポレートテーマ。横浜・川崎エリアでホームページ・印刷・デザイン・ポスティング・ウェア等を手がける同社のサービス紹介と問い合わせ導線を統合したクラシックテーマ。
+Version: 1.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: recross
+*/
+
+/* main stylesheet lives in assets/css/style.css (enqueued via inc/enqueue.php). */

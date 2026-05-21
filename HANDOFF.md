@@ -155,3 +155,43 @@ curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 
 ---
 
 最終更新: 2026-05-21（旧セッション最終時点）
+
+---
+
+## 8. 2026-05-21 セッション進捗
+
+### 入力
+- ユーザーから WordPress エクスポート XML を受領 → `legacy/wordpress-export.xml`（コミット済）
+- 旧サイトのコンテンツ・カスタム投稿スキーマ・ACF構造・Elementor デザイントークン全部抽出
+
+### 確定したデザイントークン（Elementor Default Kit より）
+- ブランド色: `#D11C2C`（メインの赤）／サブ: `#5043A4`（KYOSO紫）
+- フォント: `M PLUS 1`（Google Fonts）
+- コンテナ最大幅: 1160px（HANDOFFの仕様と一致）
+- ロゴ: `https://recross.co.jp/wp-content/uploads/2025/11/logo251112.svg`
+
+### 確定した会社実データ
+- 株式会社リクロス（T5020001107176）
+- 〒210-0844 神奈川県川崎市川崎区渡田新町３丁目２−８ かわさき保育会館２階
+- TEL 044-280-7820 / FAX 044-280-7520
+- 設立 2014年8月8日 / 資本金 1,300,000円 / 代表取締役 鈴木 清実賢
+- ※ 既に川崎へ移転済み
+
+### 実装済み（recross/ テーマ骨組み）
+- style.css / functions.php（テーマブートストラップ）
+- inc/enqueue.php / inc/menus.php（KYOSO/ちょこぺじ自動挿入Walker付き）/ inc/post-types.php（service/news/company CPT 登録）/ inc/acf-fields.php / inc/template-functions.php
+- header.php / footer.php / front-page.php / index.php / page.php / single.php / archive.php / 404.php / search.php / searchform.php
+- template-parts/sections/{mainvisual, top-company, top-service, top-blog}.php
+- assets/css/style.css（デザイントークン・レスポンシブ基盤）
+- assets/js/main.js（モバイルナビ・スライダー）
+
+### 残タスク
+- screenshot.png（テーマスクリーンショット）
+- 動作確認用WP環境でのデバッグ
+- KYOSO/ちょこぺじ 専用ページテンプレートが必要なら追加
+- お問合せページ専用テンプレート（CF7との連携CSS統合）
+- 沿革・アクセスページのレイアウト詳細
+- デザイン詳細の作り込み（カラー比率、見出し装飾、ホバー演出等）
+
+### ブランチ
+- 本セッション: `claude/resume-from-handoff-DWZ8d`
