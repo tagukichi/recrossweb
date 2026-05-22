@@ -203,6 +203,11 @@ curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 
 - header.php / footer.php フォールバックロゴ表示を SVG に変更
   - フッターは `filter: brightness(0) invert(1)` で白化（暗背景用）
 
+### 実装済み（追加分3）
+- htaccess-staging.sample — 動作確認用WP（マルチサイト）の WP ルートに置く .htaccess サンプル
+  - `/wp-content/uploads/<file>` がローカルに無ければ recross.co.jp に 302 リダイレクト
+  - メディアを本番から拝借する仕組み（ステージングにメディア同期不要）
+
 ### 残タスク
 - 動作確認用WP環境でのデバッグ（環境未準備）
 - 会社概要・沿革・アクセスは ACF データを「会社概要(id=25)」の post に登録すれば既に表示される
