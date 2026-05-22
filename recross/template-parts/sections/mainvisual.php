@@ -2,11 +2,12 @@
 /**
  * TOP main visual — Editorial hero.
  *
- * Renders the full-bleed editorial hero. If ACF slides are configured,
- * they show as a strip underneath. Otherwise just the hero stands alone.
+ * The editorial hero IS the main visual; the legacy ACF top_slider data
+ * is intentionally NOT rendered here (the editorial design replaces it).
+ * The ACF `banner` field is still honored as a small promo strip under
+ * the hero, since the legacy site uses it to push KYOSO/seasonal banners.
  */
 
-$slides = recross_top_slides();
 $banner = recross_top_banner();
 ?>
 
@@ -51,41 +52,6 @@ $banner = recross_top_banner();
     </div>
 </section>
 
-<?php if ( ! empty( $slides ) ) : ?>
-    <section class="hero-strip" aria-label="お知らせビジュアル">
-        <div class="hero-strip__track" data-recross-slider>
-            <?php foreach ( $slides as $slide ) :
-                $pc   = isset( $slide['slider_imgpc'] ) ? $slide['slider_imgpc'] : null;
-                $sp   = isset( $slide['slider_imgsp'] ) ? $slide['slider_imgsp'] : null;
-                $link = isset( $slide['slider_link'] ) ? $slide['slider_link'] : '';
-                $blank = ! empty( $slide['target'] );
-
-                $pc_url = is_array( $pc ) ? ( $pc['url'] ?? '' ) : $pc;
-                $sp_url = is_array( $sp ) ? ( $sp['url'] ?? '' ) : $sp;
-                $alt    = is_array( $pc ) ? ( $pc['alt'] ?? '' ) : '';
-                if ( ! $pc_url ) {
-                    continue;
-                }
-            ?>
-                <div class="hero-strip__slide mv__slide">
-                    <?php if ( $link ) : ?>
-                        <a href="<?php echo esc_url( $link ); ?>"<?php echo $blank ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
-                    <?php endif; ?>
-                    <picture>
-                        <?php if ( $sp_url ) : ?>
-                            <source media="(max-width: 749px)" srcset="<?php echo esc_url( $sp_url ); ?>">
-                        <?php endif; ?>
-                        <img src="<?php echo esc_url( $pc_url ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="lazy">
-                    </picture>
-                    <?php if ( $link ) : ?>
-                        </a>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-<?php endif; ?>
-
 <?php
 $banner_image = $banner['image'] ?? null;
 $banner_url   = is_array( $banner_image ) ? ( $banner_image['url'] ?? '' ) : $banner_image;
@@ -102,3 +68,4 @@ if ( $banner_url ) :
         <?php endif; ?>
     </div>
 <?php endif; ?>
+
