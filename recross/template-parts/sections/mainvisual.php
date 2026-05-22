@@ -1,20 +1,51 @@
 <?php
 /**
- * TOP main visual — Editorial hero.
+ * TOP main visual — Editorial hero with image background.
  *
- * The editorial hero IS the main visual; the legacy ACF top_slider data
- * is intentionally NOT rendered here (the editorial design replaces it).
- * The ACF `banner` field is still honored as a small promo strip under
- * the hero, since the legacy site uses it to push KYOSO/seasonal banners.
+ * Pulls the ACF top_slider images and uses them as the hero background
+ * (auto-rotating via main.js). A dark gradient overlay sits on top so
+ * the catch copy stays readable. ACF `banner` field is honored as a
+ * small promo strip below the hero.
  */
 
+$slides = recross_top_slides();
 $banner = recross_top_banner();
+
+// Filter to slides that actually have a PC image.
+$slides = array_values( array_filter( $slides, function ( $s ) {
+    $pc = $s['slider_imgpc'] ?? null;
+    return is_array( $pc ) ? ! empty( $pc['url'] ) : ! empty( $pc );
+} ) );
+$has_slides = ! empty( $slides );
 ?>
 
-<section class="hero" aria-label="メインビジュアル">
-    <div class="hero__bg" aria-hidden="true">
-        <span class="hero__bg-number">2026</span>
-    </div>
+<section class="hero<?php echo $has_slides ? ' hero--image' : ''; ?>" aria-label="メインビジュアル">
+
+    <?php if ( $has_slides ) : ?>
+        <div class="hero__bg" data-recross-slider aria-hidden="true">
+            <?php foreach ( $slides as $i => $slide ) :
+                $pc     = $slide['slider_imgpc'] ?? null;
+                $sp     = $slide['slider_imgsp'] ?? null;
+                $pc_url = is_array( $pc ) ? ( $pc['url'] ?? '' ) : $pc;
+                $sp_url = is_array( $sp ) ? ( $sp['url'] ?? '' ) : $sp;
+                $alt    = is_array( $pc ) ? ( $pc['alt'] ?? '' ) : '';
+            ?>
+                <div class="hero__slide<?php echo 0 === $i ? ' is-active' : ''; ?>">
+                    <picture>
+                        <?php if ( $sp_url ) : ?>
+                            <source media="(max-width: 749px)" srcset="<?php echo esc_url( $sp_url ); ?>">
+                        <?php endif; ?>
+                        <img src="<?php echo esc_url( $pc_url ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="eager">
+                    </picture>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="hero__overlay" aria-hidden="true"></div>
+    <?php else : ?>
+        <div class="hero__bg hero__bg--text" aria-hidden="true">
+            <span class="hero__bg-number">2026</span>
+        </div>
+    <?php endif; ?>
 
     <div class="site-container hero__inner">
         <div class="hero__meta">
@@ -44,11 +75,6 @@ $banner = recross_top_banner();
                 </a>
             </div>
         </div>
-
-        <div class="hero__scroll" aria-hidden="true">
-            <span>Scroll</span>
-            <span class="hero__scroll-line"></span>
-        </div>
     </div>
 </section>
 
@@ -68,4 +94,3 @@ if ( $banner_url ) :
         <?php endif; ?>
     </div>
 <?php endif; ?>
-
