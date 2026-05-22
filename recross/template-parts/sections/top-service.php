@@ -1,9 +1,10 @@
 <?php
 /**
- * TOP section: 事業内容
+ * TOP section 02: 事業内容 — Editorial.
  *
- * Pulls all `service` posts in menu_order, then appends the two
- * special menu links (KYOSO external, ちょこぺじ coming soon) as cards.
+ * Vertical large-list style. No cards. Each service is a full-width row
+ * with a 2-digit number, huge title, thin description, and arrow.
+ * KYOSO + ちょこぺじ appended at the bottom as the same row shape.
  */
 
 $services = get_posts( array(
@@ -13,57 +14,78 @@ $services = get_posts( array(
     'order'          => 'ASC',
     'post_status'    => 'publish',
 ) );
-?>
-<section class="section section--service" aria-labelledby="top-service-heading">
-    <div class="site-container">
-        <header class="section__head">
-            <p class="section__eyebrow">Service</p>
-            <h2 id="top-service-heading" class="section__title">事業内容</h2>
-            <p class="section__divider" aria-hidden="true"></p>
-        </header>
 
-        <ul class="card-grid card-grid--4 card-grid--service">
-            <?php foreach ( $services as $service ) :
-                $thumb = get_the_post_thumbnail_url( $service, 'medium_large' );
-                $excerpt = has_excerpt( $service ) ? get_the_excerpt( $service ) : wp_trim_words( wp_strip_all_tags( $service->post_content ), 40, '…' );
+$rows = array();
+$idx = 1;
+foreach ( $services as $service ) {
+    $excerpt = has_excerpt( $service )
+        ? get_the_excerpt( $service )
+        : wp_trim_words( wp_strip_all_tags( $service->post_content ), 28, '…' );
+    $rows[] = array(
+        'num'     => sprintf( '%02d', $idx++ ),
+        'title'   => get_the_title( $service ),
+        'excerpt' => $excerpt,
+        'url'     => get_permalink( $service ),
+        'target'  => '',
+        'rel'     => '',
+        'badge'   => '',
+    );
+}
+$rows[] = array(
+    'num'     => sprintf( '%02d', $idx++ ),
+    'title'   => 'KYOSO',
+    'excerpt' => '月額制で「育てる」ホームページサービス。',
+    'url'     => 'https://recross.co.jp/kyoso/',
+    'target'  => '_blank',
+    'rel'     => 'noopener noreferrer',
+    'badge'   => '外部サイト',
+);
+$rows[] = array(
+    'num'     => sprintf( '%02d', $idx++ ),
+    'title'   => 'ちょこぺじ',
+    'excerpt' => '小さな一歩から始めるホームページサービス。',
+    'url'     => '#',
+    'target'  => '',
+    'rel'     => '',
+    'badge'   => '準備中',
+);
+?>
+<section class="editorial editorial--02" aria-labelledby="top-service-heading">
+    <div class="editorial__bgnum" aria-hidden="true">02</div>
+    <div class="site-container editorial__inner">
+        <div class="editorial__head">
+            <span class="editorial__eyebrow">
+                <span class="editorial__eyebrow-num">02</span>
+                <span class="editorial__eyebrow-divider" aria-hidden="true"></span>
+                <span class="editorial__eyebrow-text">Service</span>
+            </span>
+            <h2 id="top-service-heading" class="editorial__title">
+                <span class="editorial__title-line">伝えるすべてを、</span>
+                <span class="editorial__title-line">一社で。</span>
+            </h2>
+        </div>
+
+        <ol class="bigrow">
+            <?php foreach ( $rows as $r ) :
+                $is_disabled = ( '#' === $r['url'] );
+                $tag         = $is_disabled ? 'div' : 'a';
             ?>
-                <li class="card card--service">
-                    <a href="<?php echo esc_url( get_permalink( $service ) ); ?>" class="card__cover">
-                        <?php if ( $thumb ) : ?>
-                            <img src="<?php echo esc_url( $thumb ); ?>" alt="" loading="lazy">
-                        <?php else : ?>
-                            <span class="card__cover-placeholder" aria-hidden="true"></span>
-                        <?php endif; ?>
-                    </a>
-                    <div class="card__body">
-                        <h3 class="card__title"><a href="<?php echo esc_url( get_permalink( $service ) ); ?>"><?php echo esc_html( get_the_title( $service ) ); ?></a></h3>
-                        <p class="card__text"><?php echo esc_html( $excerpt ); ?></p>
-                    </div>
+                <li class="bigrow__item<?php echo $is_disabled ? ' is-disabled' : ''; ?>">
+                    <<?php echo $tag; ?> class="bigrow__link"<?php if ( ! $is_disabled ) : ?> href="<?php echo esc_url( $r['url'] ); ?>"<?php endif; ?><?php if ( $r['target'] ) : ?> target="<?php echo esc_attr( $r['target'] ); ?>"<?php endif; ?><?php if ( $r['rel'] ) : ?> rel="<?php echo esc_attr( $r['rel'] ); ?>"<?php endif; ?>>
+                        <span class="bigrow__num"><?php echo esc_html( $r['num'] ); ?></span>
+                        <div class="bigrow__main">
+                            <h3 class="bigrow__title">
+                                <?php echo esc_html( $r['title'] ); ?>
+                                <?php if ( $r['badge'] ) : ?>
+                                    <span class="bigrow__badge"><?php echo esc_html( $r['badge'] ); ?></span>
+                                <?php endif; ?>
+                            </h3>
+                            <p class="bigrow__excerpt"><?php echo esc_html( $r['excerpt'] ); ?></p>
+                        </div>
+                        <span class="bigrow__arrow" aria-hidden="true"><?php echo $r['target'] === '_blank' ? '↗' : ( $is_disabled ? '—' : '→' ); ?></span>
+                    </<?php echo $tag; ?>>
                 </li>
             <?php endforeach; ?>
-
-            <li class="card card--service card--extra">
-                <a class="card__cover" href="https://recross.co.jp/kyoso/" target="_blank" rel="noopener noreferrer">
-                    <span class="card__badge">外部サイト</span>
-                </a>
-                <div class="card__body">
-                    <h3 class="card__title"><a href="https://recross.co.jp/kyoso/" target="_blank" rel="noopener noreferrer">KYOSO</a></h3>
-                    <p class="card__text">月額制で「育てる」ホームページサービス。</p>
-                </div>
-            </li>
-            <li class="card card--service card--extra card--coming-soon">
-                <div class="card__cover">
-                    <span class="card__badge">準備中</span>
-                </div>
-                <div class="card__body">
-                    <h3 class="card__title">ちょこぺじ</h3>
-                    <p class="card__text">小さな一歩から始めるホームページサービス（準備中）</p>
-                </div>
-            </li>
-        </ul>
-
-        <p class="section__more">
-            <a href="<?php echo esc_url( home_url( '/service/' ) ); ?>" class="button button--outline">事業内容をすべて見る</a>
-        </p>
+        </ol>
     </div>
 </section>

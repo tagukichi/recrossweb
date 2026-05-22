@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function recross_enqueue_assets() {
     wp_enqueue_style(
         'recross-fonts',
-        'https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500;600;700;800;900&family=Manrope:wght@400;600;800&display=swap',
         array(),
         null
     );
