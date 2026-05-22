@@ -854,56 +854,30 @@ button { font: inherit; cursor: pointer; }
     --font-en:            "Manrope", "M PLUS 1", sans-serif;
 }
 
-/* ---------- HERO ----------------------------------------------------- */
+/* ---------- HERO (split: image on top, text below) ------------------ */
 .hero {
     position: relative;
     background: var(--color-ivory);
     color: var(--color-ink);
-    min-height: calc(100vh - var(--header-height-sp));
-    padding: 80px 0 120px;
     overflow: hidden;
 }
 
-/* Image-background variant: dark theme so text reads over photos. */
-.hero--image {
-    background: #0a0a0a;
-    color: #fff;
+/* Upper band: 16:9 image slider, centered crop. */
+.hero__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 720px;
+    background: #000;
+    overflow: hidden;
 }
-.hero--image .hero__meta,
-.hero--image .hero__meta-text { color: #fff; }
-.hero--image .hero__catch { color: #fff; }
-.hero--image .hero__lead { color: rgba(255,255,255,.82); }
-.hero--image .hero__catch em { color: var(--color-brand); }
-.hero--image .hero__catch em::after { background: var(--color-brand); opacity: .35; }
-.hero--image .link-mega { color: #fff; border-color: #fff; }
-.hero--image .link-mega--ghost { border-color: rgba(255,255,255,.5); }
-.hero--image .link-mega:hover { color: var(--color-brand); border-color: var(--color-brand); }
-
-/* Background layer container — holds the slider OR the giant text watermark. */
-.hero__bg {
+@media (max-width: 749px) {
+    .hero__image { aspect-ratio: 4 / 3; }
+}
+.hero__slider {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    overflow: hidden;
 }
-/* Text-only fallback (no slides configured) keeps the old watermark layout. */
-.hero__bg--text {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-.hero__bg-number {
-    font-family: var(--font-en);
-    font-weight: 800;
-    font-size: clamp(280px, 50vw, 720px);
-    line-height: 0.85;
-    color: var(--color-ivory-dark);
-    transform: translate(8%, 12%);
-    user-select: none;
-    letter-spacing: -0.04em;
-}
-
-/* Slider slides (each picture fades in/out). */
 .hero__slide {
     position: absolute;
     inset: 0;
@@ -911,32 +885,27 @@ button { font: inherit; cursor: pointer; }
     transition: opacity 1.2s ease;
 }
 .hero__slide.is-active { opacity: 1; }
-.hero__slide picture,
+.hero__slide a,
 .hero__slide img {
     display: block;
     width: 100%;
     height: 100%;
+}
+.hero__slide img {
     object-fit: cover;
-    object-position: center;
+    object-position: center center;
 }
 
-/* Dark gradient + Ken-Burns-friendly tint over the slider so text reads. */
-.hero__overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-        linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.7) 100%),
-        linear-gradient(90deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 60%);
+/* Lower band: ivory editorial text area. */
+.hero__text {
+    padding: 80px 0 120px;
 }
 .hero__inner {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: calc(100vh - var(--header-height-sp) - 120px);
-    gap: 48px;
+    gap: 40px;
 }
 .hero__meta {
     display: flex;
