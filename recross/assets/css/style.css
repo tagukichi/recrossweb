@@ -862,17 +862,14 @@ button { font: inherit; cursor: pointer; }
     overflow: hidden;
 }
 
-/* Upper band: 16:9 image slider, centered crop. */
+/* Upper band: 3:2 image slider, full image shown (contain), centered. */
 .hero__image {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 2;
     max-height: 720px;
-    background: #000;
+    background: var(--color-ivory);
     overflow: hidden;
-}
-@media (max-width: 749px) {
-    .hero__image { aspect-ratio: 4 / 3; }
 }
 .hero__slider {
     position: absolute;
@@ -892,7 +889,7 @@ button { font: inherit; cursor: pointer; }
     height: 100%;
 }
 .hero__slide img {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
 }
 

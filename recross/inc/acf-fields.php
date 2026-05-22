@@ -42,7 +42,7 @@ function recross_register_acf_fields() {
                         'key'           => 'field_recross_top_slider_img',
                         'name'          => 'slider_img',
                         'label'         => '画像',
-                        'instructions' => '推奨アスペクト比 16:9（例: 1920×1080）。スマートフォンでも同じ画像が中央配置で表示されます。',
+                        'instructions' => '推奨アスペクト比 3:2（例: 1200×800）。アスペクトが異なる画像はアイボリー背景で中央配置されます（見切れません）。',
                         'type'          => 'image',
                         'return_format' => 'array',
                         'preview_size'  => 'medium',
