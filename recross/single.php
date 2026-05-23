@@ -1,49 +1,47 @@
 <?php
 /**
- * Single post template (handles post / news / service / company).
+ * Single post (blog / 標準投稿) — Editorial.
  */
 get_header();
 
 while ( have_posts() ) :
     the_post();
-
-    $post_type = get_post_type();
-    $eyebrow_map = array(
-        'post'    => 'Blog',
-        'news'    => 'News',
-        'service' => 'Service',
-        'company' => 'Company',
-    );
-    $eyebrow = $eyebrow_map[ $post_type ] ?? '';
+    $thumb_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+    $cats = get_the_category();
+    $cat  = ! empty( $cats ) ? $cats[0]->name : '';
 ?>
-<section class="page-head">
-    <div class="site-container">
-        <?php if ( $eyebrow ) : ?>
-            <p class="page-head__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
-        <?php endif; ?>
-        <h1 class="page-head__title"><?php the_title(); ?></h1>
-        <?php if ( 'post' === $post_type || 'news' === $post_type ) : ?>
-            <p class="page-head__meta"><time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?></time></p>
-        <?php endif; ?>
-    </div>
-</section>
 
-<article <?php post_class( 'single-body' ); ?>>
-    <div class="site-container site-main__inner site-main__inner--narrow">
-        <?php if ( has_post_thumbnail() ) : ?>
-            <figure class="single-body__thumb"><?php the_post_thumbnail( 'large' ); ?></figure>
-        <?php endif; ?>
+<article <?php post_class( 'editorial-page editorial-page--post' ); ?>>
 
-        <div class="prose">
-            <?php the_content(); ?>
+    <?php get_template_part( 'template-parts/parts/page-head-editorial', null, array(
+        'eyebrow'   => 'Blog',
+        'meta'      => trim( get_the_date( 'Y.m.d' ) . ( $cat ? ' / ' . $cat : '' ) ),
+        'title'     => get_the_title(),
+        'cover_url' => $thumb_url ?: '',
+    ) ); ?>
+
+    <div class="editorial-page__body">
+        <div class="site-container editorial-page__body-inner">
+            <div class="prose-editorial">
+                <?php the_content(); ?>
+            </div>
+
+            <nav class="post-nav-editorial" aria-label="記事ナビゲーション">
+                <div class="post-nav-editorial__prev"><?php previous_post_link( '<span class="post-nav-editorial__label">前の記事</span><span class="post-nav-editorial__title">%link</span>', '%title' ); ?></div>
+                <div class="post-nav-editorial__next"><?php next_post_link( '<span class="post-nav-editorial__label">次の記事</span><span class="post-nav-editorial__title">%link</span>', '%title' ); ?></div>
+            </nav>
+
+            <p class="editorial-page__back">
+                <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="link-mega link-mega--small">
+                    <span class="link-mega__arrow" aria-hidden="true">←</span>
+                    <span class="link-mega__label">ブログ一覧へ戻る</span>
+                </a>
+            </p>
         </div>
-
-        <nav class="post-nav" aria-label="記事ナビゲーション">
-            <div class="post-nav__prev"><?php previous_post_link( '%link', '&larr; %title' ); ?></div>
-            <div class="post-nav__next"><?php next_post_link( '%link', '%title &rarr;' ); ?></div>
-        </nav>
     </div>
+
 </article>
+
 <?php
 endwhile;
 

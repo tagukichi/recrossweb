@@ -1,26 +1,32 @@
 <?php
 /**
- * Default page template.
+ * Generic page template — Editorial.
  */
 get_header();
 
 while ( have_posts() ) :
     the_post();
+    $thumb_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 ?>
-<section class="page-head">
-    <div class="site-container">
-        <p class="page-head__eyebrow">Page</p>
-        <h1 class="page-head__title"><?php the_title(); ?></h1>
-    </div>
-</section>
 
-<article <?php post_class( 'page-body' ); ?>>
-    <div class="site-container site-main__inner">
-        <div class="prose">
-            <?php the_content(); ?>
+<article <?php post_class( 'editorial-page editorial-page--page' ); ?>>
+
+    <?php get_template_part( 'template-parts/parts/page-head-editorial', null, array(
+        'eyebrow'   => 'Page',
+        'title'     => get_the_title(),
+        'cover_url' => $thumb_url ?: '',
+    ) ); ?>
+
+    <div class="editorial-page__body">
+        <div class="site-container editorial-page__body-inner">
+            <div class="prose-editorial">
+                <?php the_content(); ?>
+            </div>
         </div>
     </div>
+
 </article>
+
 <?php
 endwhile;
 

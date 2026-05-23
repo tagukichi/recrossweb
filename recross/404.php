@@ -1,22 +1,31 @@
 <?php
 /**
- * 404 Not Found
+ * 404 Not Found — Editorial.
  */
 get_header();
 ?>
-<section class="page-head">
-    <div class="site-container">
-        <p class="page-head__eyebrow">404</p>
-        <h1 class="page-head__title">ページが見つかりません</h1>
-    </div>
-</section>
 
-<div class="site-container site-main__inner site-main__inner--narrow">
-    <p>申し訳ございません。お探しのページが見つかりませんでした。<br>URLをご確認の上、もう一度お試しください。</p>
-    <p class="section__more">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button button--outline">トップへ戻る</a>
-    </p>
-</div>
+<article class="editorial-page editorial-page--404">
+
+    <?php get_template_part( 'template-parts/parts/page-head-editorial', null, array(
+        'eyebrow' => 'Error',
+        'meta'    => '404',
+        'title'   => 'ページが見つかりません',
+        'lead'    => 'お探しのページは移動・削除されたか、URL が間違っている可能性があります。',
+    ) ); ?>
+
+    <div class="editorial-page__body">
+        <div class="site-container editorial-page__body-inner">
+            <p class="editorial-page__back">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="link-mega">
+                    <span class="link-mega__arrow" aria-hidden="true">←</span>
+                    <span class="link-mega__label">トップへ戻る</span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+</article>
 
 <?php
 get_footer();

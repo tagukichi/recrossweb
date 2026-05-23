@@ -217,10 +217,20 @@ curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 
   - 共通: 巨大背景数字 (01/02/03)、Manrope (英字) + M PLUS 1 900 (見出し) を併用
 - inc/enqueue.php に M PLUS 1 weight 800/900 + Manrope 追加
 
+### 実装済み（追加分5: 全ページ エディトリアル化）
+- template-parts/parts/page-head-editorial.php — 全テンプレ共通の head パーツ
+- 全 12 テンプレートをエディトリアル化:
+  - single-service.php / archive-service.php
+  - single-news.php / archive-news.php
+  - single-company.php (outline=ed-table / history=ed-timeline / access=ed-map+ed-table) / archive-company.php
+  - single.php / archive.php / index.php
+  - page.php / page-contact.php
+  - 404.php / search.php
+- CSS 追加: editorial-list--lg / ed-table / ed-timeline / ed-map / post-nav-editorial / editorial-contact / ed-deflist
+
 ### 残タスク
-- 動作確認用WP環境でのデバッグ（環境未準備）
-- 会社概要・沿革・アクセスは ACF データを「会社概要(id=25)」の post に登録すれば既に表示される
-- 下層ページ（CPT詳細・会社情報・お問合せ）もエディトリアル化するか判断
+- 動作確認用WP環境でのデバッグ
+- TOPページのデザイン詳細 FIX
 - デザイン詳細の微調整（ホバー演出、装飾、写真の差し替え）
 
 ### ブランチ

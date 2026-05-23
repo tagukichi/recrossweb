@@ -1,10 +1,8 @@
 <?php
 /**
- * Archive 会社情報 (company CPT) — landing page for /company/.
+ * Archive 会社情報 (company CPT) — Editorial.
  *
- * Shows all company sub-pages as cards so visitors can navigate from a
- * single 会社情報 hub. Order respects menu_order set in the legacy site
- * (ごあいさつ → 企業理念 → 会社概要 → 沿革 → アクセス → プライバシーポリシー).
+ * Bigrow list of company sub-pages (privacy hidden), in menu_order.
  */
 get_header();
 
@@ -16,40 +14,49 @@ $items = get_posts( array(
     'post_status'    => 'publish',
 ) );
 ?>
-<section class="page-head page-head--company">
-    <div class="site-container">
-        <p class="page-head__eyebrow">Company</p>
-        <h1 class="page-head__title">会社情報</h1>
-        <p class="page-head__catch">技術と知識、<br>顧客ニーズ実現へ</p>
-    </div>
-</section>
 
-<div class="site-container site-main__inner">
-    <?php if ( $items ) : ?>
-        <ul class="card-grid card-grid--3">
-            <?php foreach ( $items as $item ) :
-                if ( 'privacy-policy' === $item->post_name ) {
-                    continue;
-                }
-            ?>
-                <li class="card">
-                    <?php if ( has_post_thumbnail( $item ) ) : ?>
-                        <a class="card__cover" href="<?php echo esc_url( get_permalink( $item ) ); ?>">
-                            <?php echo get_the_post_thumbnail( $item, 'medium_large' ); ?>
-                        </a>
-                    <?php endif; ?>
-                    <div class="card__body">
-                        <h2 class="card__title"><a href="<?php echo esc_url( get_permalink( $item ) ); ?>"><?php echo esc_html( get_the_title( $item ) ); ?></a></h2>
-                        <p class="card__text"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $item->post_content ), 50, '…' ) ); ?></p>
-                        <a class="card__link" href="<?php echo esc_url( get_permalink( $item ) ); ?>">詳しくみる</a>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else : ?>
-        <p class="empty-state">表示できる項目がありません。</p>
-    <?php endif; ?>
-</div>
+<article class="editorial-page editorial-page--archive">
+
+    <?php get_template_part( 'template-parts/parts/page-head-editorial', null, array(
+        'eyebrow' => 'Company',
+        'meta'    => 'About Us',
+        'title'   => '会社情報',
+        'lead'    => '技術と知識で、お客様のブランディングをサポートする株式会社リクロスの会社情報です。',
+    ) ); ?>
+
+    <section class="editorial editorial--list">
+        <div class="site-container">
+            <?php if ( $items ) : ?>
+                <ol class="bigrow">
+                    <?php
+                    $n = 1;
+                    foreach ( $items as $item ) :
+                        if ( 'privacy-policy' === $item->post_name ) {
+                            continue;
+                        }
+                        $excerpt = has_excerpt( $item )
+                            ? get_the_excerpt( $item )
+                            : wp_trim_words( wp_strip_all_tags( $item->post_content ), 28, '…' );
+                    ?>
+                        <li class="bigrow__item">
+                            <a class="bigrow__link" href="<?php echo esc_url( get_permalink( $item ) ); ?>">
+                                <span class="bigrow__num"><?php echo esc_html( sprintf( '%02d', $n++ ) ); ?></span>
+                                <div class="bigrow__main">
+                                    <h2 class="bigrow__title"><?php echo esc_html( get_the_title( $item ) ); ?></h2>
+                                    <p class="bigrow__excerpt"><?php echo esc_html( $excerpt ); ?></p>
+                                </div>
+                                <span class="bigrow__arrow" aria-hidden="true">→</span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            <?php else : ?>
+                <p class="empty-state">表示できる項目がありません。</p>
+            <?php endif; ?>
+        </div>
+    </section>
+
+</article>
 
 <?php
 get_footer();
