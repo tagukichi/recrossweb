@@ -1,0 +1,58 @@
+# =====================================================================
+# recross — WP root .htaccess sample
+# =====================================================================
+# Drop-in replacement for the .htaccess at the WordPress root of the
+# 動作確認用WP (staging) environment.
+#
+# Purpose:
+#   The staging WP intentionally does NOT host its own media library.
+#   Any request for /wp-content/uploads/<file> that does NOT exist
+#   locally is 302-redirected to the production site (recross.co.jp).
+#   That way, posts/pages reference attachment IDs as usual but the
+#   actual image is served from production — no media sync needed.
+#
+# How to deploy:
+#   1. SSH/FTP into the staging server
+#   2. Replace the WP root .htaccess with this file
+#      (or merge: paste the "Production media fallback" block at the TOP
+#       of your existing .htaccess, before the "BEGIN WordPress" block)
+#   3. Confirm Apache has mod_rewrite enabled
+#
+# Notes:
+#   * The default WP rules below assume Multisite (subdirectory install).
+#     If the staging WP is single-site or subdomain Multisite, swap the
+#     "BEGIN WordPress" block for the appropriate variant — the media
+#     fallback block at the top works for all three layouts.
+#   * R=302 (temporary) is used so you can revert without cache issues.
+#     Switch to R=301 once you're confident in the setup.
+# =====================================================================
+
+# ---------- Production media fallback --------------------------------
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Match common media/asset extensions under /wp-content/uploads/
+# If the file does not exist locally, redirect to recross.co.jp
+RewriteCond %{REQUEST_URI} ^.*/wp-content/uploads/.+\.(jpe?g|png|gif|webp|svg|avif|bmp|ico|pdf|mp4|m4v|webm|mp3|wav|ogg|woff2?|ttf|otf|eot|zip)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*/wp-content/uploads/.+)$ https://recross.co.jp/$1 [R=302,L,NC]
+</IfModule>
+
+# ---------- BEGIN WordPress (Multisite, subdirectory) -----------------
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L]
+</IfModule>
+# ---------- END WordPress --------------------------------------------
