@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "color": {
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        { "slug": "brand",       "name": "ブランド赤",   "color": "#D11C2C" },
+        { "slug": "brand-dark",  "name": "ブランド赤(暗)","color": "#a91421" },
+        { "slug": "ink",         "name": "テキスト",      "color": "#111111" },
+        { "slug": "muted",       "name": "薄文字",        "color": "#666666" },
+        { "slug": "line",        "name": "ライン",        "color": "#D7D7D7" },
+        { "slug": "ivory",       "name": "アイボリー",    "color": "#F6F1E7" },
+        { "slug": "ivory-dark",  "name": "アイボリー(濃)","color": "#ECE5D2" },
+        { "slug": "white",       "name": "白",            "color": "#FFFFFF" },
+        { "slug": "bg-soft",     "name": "うす灰",        "color": "#F7F7F7" }
+      ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "fontSizes": [
+        { "slug": "xs", "name": "極小 (12px)", "size": "12px" },
+        { "slug": "sm", "name": "小 (14px)",   "size": "14px" },
+        { "slug": "md", "name": "標準 (16px)", "size": "16px" },
+        { "slug": "lg", "name": "大 (20px)",   "size": "20px" },
+        { "slug": "xl", "name": "特大 (28px)", "size": "28px" }
+      ]
+    },
+    "spacing": {
+      "units": ["px", "em", "rem", "%"]
+    }
+  }
+}

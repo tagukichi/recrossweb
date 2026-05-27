@@ -228,10 +228,19 @@ curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 
   - 404.php / search.php
 - CSS 追加: editorial-list--lg / ed-table / ed-timeline / ed-map / post-nav-editorial / editorial-contact / ed-deflist
 
+### 実装済み（追加分6: ブログ記事作成サポート）
+- theme.json — ブランドカラー9色 + フォントサイズ5段階を Gutenberg ピッカーに登録（カスタム色OFFで意図しない色の混入防止）
+- inc/block-styles.php — Heading / Paragraph / Image / List / Group / Quote / Button のスタイル変奏（赤バー / 下線 / 装飾なし / リード文 / 注釈ボックス / チェックリスト / 番号大きめ / アイボリーボックス 等）
+- inc/block-patterns.php — 6種類の雛形ブロック（リード+見出し / CTA帯 / 2カラム / ハイライト枠 / 番号付きステップ / 注釈）
+- inc/editor.php — エディタCSS + JSプラグイン enqueue
+- assets/css/editor.css — Gutenberg キャンバスに本番と同じプレビュースタイル
+- assets/js/editor-image-link-guide.js — 画像ブロックサイドバーに日本語の「リンク設定ヘルプ」パネルを追加
+- assets/css/style.css — フロントエンド側の `is-style-recross-*` バリエーション
+
 ### 残タスク
+- **クライアントから受領するデザインカンプ画像** をベースに既存テーマを修正
 - 動作確認用WP環境でのデバッグ
 - TOPページのデザイン詳細 FIX
-- デザイン詳細の微調整（ホバー演出、装飾、写真の差し替え）
 
 ### ブランチ
 - 本セッション: `claude/resume-from-handoff-DWZ8d`

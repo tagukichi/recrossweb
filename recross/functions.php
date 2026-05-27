@@ -49,3 +49,6 @@ require_once RECROSS_THEME_DIR . '/inc/menus.php';
 require_once RECROSS_THEME_DIR . '/inc/post-types.php';
 require_once RECROSS_THEME_DIR . '/inc/acf-fields.php';
 require_once RECROSS_THEME_DIR . '/inc/template-functions.php';
+require_once RECROSS_THEME_DIR . '/inc/block-styles.php';
+require_once RECROSS_THEME_DIR . '/inc/block-patterns.php';
+require_once RECROSS_THEME_DIR . '/inc/editor.php';
