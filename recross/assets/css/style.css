@@ -1972,3 +1972,15 @@ button { font: inherit; cursor: pointer; }
     color: var(--color-brand) !important;
     border-bottom-color: var(--color-brand) !important;
 }
+
+/* --- Inline marker (TinyMCE: ブランド赤マーカー) --------------------- */
+.recross-marker-red {
+    background: linear-gradient(transparent 60%, rgba(209,28,44,.20) 60%);
+    padding: 0 2px;
+}
+
+/* --- Shortcode wrapper ---------------------------------------------- */
+.recross-cta {
+    text-align: center;
+    margin: 2em 0;
+}

@@ -52,3 +52,5 @@ require_once RECROSS_THEME_DIR . '/inc/template-functions.php';
 require_once RECROSS_THEME_DIR . '/inc/block-styles.php';
 require_once RECROSS_THEME_DIR . '/inc/block-patterns.php';
 require_once RECROSS_THEME_DIR . '/inc/editor.php';
+require_once RECROSS_THEME_DIR . '/inc/classic-editor.php';
+require_once RECROSS_THEME_DIR . '/inc/shortcodes.php';
